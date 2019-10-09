@@ -6,7 +6,7 @@
 #    By: nharra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/17 12:21:44 by nharra            #+#    #+#              #
-#    Updated: 2019/10/09 16:44:07 by nharra           ###   ########.fr        #
+#    Updated: 2019/10/09 18:17:49 by nharra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,7 @@ SOURCES_DOUBLE_LIST =\
 	ft_dlist_del_link.c\
 	ft_dlist_delone_link.c\
 	ft_dlist_addfront_link.c\
+	ft_dlist_sort.c\
 
 
 SOURCES_SINGLE_LIST =\
@@ -126,6 +127,7 @@ SOURCES_PRINTF =\
 	num_to_str.c\
 	put_percent.c\
 	ft_join.c\
+	ft_atois.c\
 
 SOURCES_MEMORY_DIR = memory
 SOURCES_SINGLE_LIST_DIR = singly_linked_list
