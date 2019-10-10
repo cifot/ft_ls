@@ -6,7 +6,7 @@
 #    By: nharra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 18:13:07 by nharra            #+#    #+#              #
-#    Updated: 2019/10/10 12:11:28 by nharra           ###   ########.fr        #
+#    Updated: 2019/10/10 15:24:32 by nharra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS =\
 	ft_ls.c\
 	make_flag_and_args.c\
 	check_sort.c\
+	cmp.c\
 
 
 SOURCES_DIR = src

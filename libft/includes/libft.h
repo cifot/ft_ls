@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 13:17:27 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/10 11:18:38 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/10 14:16:26 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,8 @@ void				ft_dlist_add_prev(t_dlist **lst, t_dlist *side,
 size_t				ft_dlist_len(t_dlist *ptr);
 void				ft_dlist_add_after(t_dlist *after, t_dlist *el);
 t_dlist				*ft_dlist_create_el(void *el, int tag);
-void				ft_dlist_sort(t_dlist *beg, int (*cmp)(void *, void *));
+void				ft_dlist_sort(t_dlist *beg,
+						long (*cmp)(const void *, const void *));
 
 /*
 **						QUEUE

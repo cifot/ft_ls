@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   print_info_folder.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 17:10:38 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/10 15:41:43 by nharra           ###   ########.fr       */
+/*   Created: 2019/10/10 15:43:16 by nharra            #+#    #+#             */
+/*   Updated: 2019/10/10 16:16:47 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include <dirent.h>
 
-static void		write_lst(t_dlist *ptr)
+
+void	print_info_folder(const char *filename, int flags)
 {
-	while (ptr)
-	{
-		ft_printf("%s\n", (char *)ptr->content);
-		ptr = ptr->next;
-	}
-}
+	DIR				*dir;
+	struct dirent	*cur_dir;
 
-int				main(int argc, char **argv)
-{
-	int			flags;
-	t_dlist		*ls_args;
-
-	if (make_flag_and_args(argv, &flags, &ls_args) == -1)
-		return (-1);
-	if (ls_args)
+	if (!(dir = opendir(filename)))
+		ft_printf("ls: %s: Permission denied\n");
+	while ((cur_dir = readdir(dir)))
 	{
-		check_sort(ls_args, flags);
+		if (flags & flag_l)
+			print_info_object(cur_dir);
+		else
+			ft_printf("%s\n", cur_dir->d_name);
 	}
-	write_lst(ls_args);
-	ft_dlist_del_link(&ls_args);
-	return (argc - argc);
 }
