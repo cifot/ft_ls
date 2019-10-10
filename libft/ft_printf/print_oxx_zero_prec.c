@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 16:32:49 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/09 16:30:27 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/10 10:59:51 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 
 int		print_oxx_zero_prec(t_print_info *info)
 {
-	int		len;
-
-	len = 0;
 	put_nsym(info->width - 1, ' ');
 	if (info->type == type_o && info->flags == flag_hash)
 	{

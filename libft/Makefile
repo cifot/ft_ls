@@ -6,7 +6,7 @@
 #    By: nharra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/17 12:21:44 by nharra            #+#    #+#              #
-#    Updated: 2019/10/09 18:17:49 by nharra           ###   ########.fr        #
+#    Updated: 2019/10/10 11:23:27 by nharra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,9 @@ SOURCES_DOUBLE_LIST =\
 	ft_dlist_del_link.c\
 	ft_dlist_delone_link.c\
 	ft_dlist_addfront_link.c\
+	ft_dlist_add_after.c\
+	ft_dlist_add_prev.c\
+	ft_dlist_create_el.c\
 	ft_dlist_sort.c\
 
 

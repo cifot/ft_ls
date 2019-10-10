@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 09:59:23 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/09 16:30:24 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/10 10:58:40 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void		check(char **ld_str, t_print_info *info, int flag)
 		join_nsym(ld_str, 0, info->width - len, ' ');
 }
 
-static void		round(char **ld_str, char *ptr)
+static void		round_f(char **ld_str, char *ptr)
 {
 	ptr = *ld_str;
 	while (*ptr)
@@ -120,7 +120,7 @@ int				print_f(t_print_info *info, va_list params)
 	ld_num = (ld_num >= 0 ? ld_num : -ld_num);
 	ld_str = makeld_str(info, ld_num);
 	if (info->precision > 0)
-		round(&ld_str, NULL);
+		round_f(&ld_str, NULL);
 	if (flag)
 		ft_join_beg(&ld_str, "-");
 	check(&ld_str, info, flag);

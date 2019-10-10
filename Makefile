@@ -6,7 +6,7 @@
 #    By: nharra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 18:13:07 by nharra            #+#    #+#              #
-#    Updated: 2019/10/09 18:15:28 by nharra           ###   ########.fr        #
+#    Updated: 2019/10/10 12:11:28 by nharra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ FLAGS = -Wall -Werror -Wextra
 SRCS =\
 	ft_ls.c\
 	make_flag_and_args.c\
+	check_sort.c\
 
 
 SOURCES_DIR = src
@@ -60,8 +61,9 @@ $(OBJECTS_DIR)/%.o: $(SOURCES_DIR)/%.c
 $(LIBFT_DIR)/libft.a:
 	make -C $(LIBFT_DIR) all
 
-fclean: clean
+fclean:
 	make -C $(LIBFT_DIR) fclean
+	rm -rf $(OBJECTS_DIR)
 	rm -rf $(NAME)
 
 clean:

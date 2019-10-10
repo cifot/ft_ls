@@ -5,32 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/09 17:30:12 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/09 17:58:06 by nharra           ###   ########.fr       */
+/*   Created: 2019/10/10 11:12:55 by nharra            #+#    #+#             */
+/*   Updated: 2019/10/10 12:07:32 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void			ft_dlist_sort(t_dlist *beg, int (*cmp)(void *, void *))
+void	ft_dlist_sort(t_dlist *beg, int (*cmp)(const void *,const void *))
 {
-	t_dlist		*ptr;
-	void		*save;
+	t_dlist *ptr;
+	t_dlist *min;
+	void	*save;
 
 	if (!beg || !(beg->next))
 		return ;
-	while (beg->next)
+	while(beg->next)
 	{
+		min = beg;
 		ptr = beg->next;
-		while (ptr)
+		while(ptr)
 		{
-			if (cmp(beg->content, ptr->content) > 0)
-			{
-				save = beg->content;
-				beg->content = ptr->content;
-				ptr->content = save;
-			}
+			if (cmp(min->content, ptr->content) > 0)
+				min = ptr;
 			ptr = ptr->next;
+		}
+		if (min != beg)
+		{
+			save = beg->content;
+			beg->content = min->content;
+			min->content = save;
 		}
 		beg = beg->next;
 	}

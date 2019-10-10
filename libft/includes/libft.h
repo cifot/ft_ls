@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 13:17:27 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/09 17:59:10 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/10 11:18:38 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strnstr(const char *haystack, const char *needle,
-								size_t len);
+						size_t len);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
@@ -163,7 +163,7 @@ void				check_size(t_print_info *info, const char **ptr);
 int					check_type(t_print_info *info, const char **ptr);
 int					parser(const char *format, va_list params);
 int					putnum_base(unsigned long long num, unsigned base,
-								t_print_info *info);
+						t_print_info *info);
 char				*ull_base(unsigned long long num, t_print_info *info);
 char				*ll_base(long long num, t_print_info *info);
 int					print_params(t_print_info *info, va_list params);
@@ -196,12 +196,12 @@ typedef struct		s_dlist
 }					t_dlist;
 
 void				ft_dlist_delone(t_dlist **lst, t_dlist *ptr,
-									void (*del)(void *));
+						void (*del)(void *));
 void				ft_dlist_del(t_dlist **lst, void (*del)(void *));
 t_dlist				*ft_dlist_find(t_dlist const *lst, void *data,
-									int (*f)(void *, void *));
+						int (*f)(void *, void *));
 t_dlist				*ft_dlist_push(t_dlist **lst, void *data, size_t size,
-									int tag);
+						int tag);
 void				ft_dlist_simple_delone(t_dlist **lst, t_dlist *ptr);
 void				ft_dlist_simple_del(t_dlist **lst);
 t_dlist				*ft_dlist_find_tag(t_dlist const *lst, int tag);
@@ -209,8 +209,12 @@ void				ft_dlist_delone_link(t_dlist **lst, t_dlist *ptr);
 void				ft_dlist_del_link(t_dlist **lst);
 t_dlist				*ft_dlist_push_link(t_dlist **lst, void *data, int tag);
 t_dlist				*ft_dlist_addfront_link(t_dlist **lst, void *data,
-											int tag);
+						int tag);
+void				ft_dlist_add_prev(t_dlist **lst, t_dlist *side,
+						t_dlist *el);
 size_t				ft_dlist_len(t_dlist *ptr);
+void				ft_dlist_add_after(t_dlist *after, t_dlist *el);
+t_dlist				*ft_dlist_create_el(void *el, int tag);
 void				ft_dlist_sort(t_dlist *beg, int (*cmp)(void *, void *));
 
 /*
@@ -228,6 +232,10 @@ int					ft_queue_push_link(t_queue *queue, void *el, int tag);
 void				ft_queque_del_link(t_queue **queue);
 void				*ft_queue_pop(t_queue *queue);
 t_queue				*ft_queue_new(void);
+
+/*
+**						PRIORITY_QUEUE
+*/
 
 /*
 **						STACK
