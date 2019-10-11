@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:43:16 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 16:48:38 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/11 18:29:02 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ static t_dlist		*make_args(int flags, char *dirname)
 		len = cur_file->d_namlen;
 		ft_dlist_addfront(&lst, cur_file->d_name, len + 1, len);
 	}
-	check_sort(lst, flags);
 	closedir(dir);
+	check_sort(lst, flags);
 	return (lst);
 }
 
-static int			call_strcmp(void *s1, void *s2)
+int					call_strcmp(void *s1, void *s2)
 {
 	return (ft_strcmp((char *)s1, (char *)s2));
 }
@@ -107,7 +107,7 @@ void				ls_dir(char *dirname, int flags,
 		write(1, ":\n", 2);
 	}
 	if (flags & flag_l)
-		hard_print(flags, args, dir);
+		hard_print(args);
 	else
 		simple_print(args);
 	if (flags & flag_R)

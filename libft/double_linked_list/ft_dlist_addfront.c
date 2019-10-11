@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 11:45:03 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 11:47:05 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/11 17:46:51 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_dlist		*ft_dlist_addfront(t_dlist **lst, void *data, size_t size, int tag)
 	ptr->tag = tag;
 	ptr->prev = NULL;
 	ptr->next = *lst;
-	if (*lst != NULL)
+	if ((*lst) != NULL)
 		(*lst)->prev = ptr;
 	*lst = ptr;
 	return (*lst);

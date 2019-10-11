@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:12:55 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 16:35:16 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/11 18:27:34 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_dlist_sort(t_dlist *beg, long (*cmp)(const void *, const void *))
 	t_dlist *ptr;
 	t_dlist *min;
 
-	if (!beg || !(beg->next))
+	if (!beg || !(beg->next) || !cmp)
 		return ;
 	while (beg->next)
 	{

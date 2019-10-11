@@ -6,7 +6,7 @@
 #    By: nharra <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 18:13:07 by nharra            #+#    #+#              #
-#    Updated: 2019/10/11 13:43:37 by nharra           ###   ########.fr        #
+#    Updated: 2019/10/11 16:51:27 by nharra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS =\
 	cmp.c\
 	ls_dir.c\
 	simple_print.c\
+	hard_print.c\
 
 
 SOURCES_DIR = src
