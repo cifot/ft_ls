@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlist_find.c                                    :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/11 11:49:13 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 14:34:25 by nharra           ###   ########.fr       */
+/*   Created: 2019/10/11 12:39:18 by nharra            #+#    #+#             */
+/*   Updated: 2019/10/11 12:41:29 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_dlist		*ft_dlist_find(t_dlist const *lst, void *data,
-							int (*f)(void *, void *))
+void	ft_swap_int(int *a, int *b)
 {
-	if (lst == NULL || f == NULL)
-		return (NULL);
-	while (lst && f(lst->content, data))
-	{
-		lst = lst->next;
-	}
-	return ((t_dlist *)lst);
+	int c;
+
+	if (!a || !b)
+		return ;
+	c = *a;
+	*a = *b;
+	*b = c;
 }

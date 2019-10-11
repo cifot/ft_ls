@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_info_folder.c                                :+:      :+:    :+:   */
+/*   simple_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/10 15:43:16 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/10 16:16:47 by nharra           ###   ########.fr       */
+/*   Created: 2019/10/11 13:41:54 by nharra            #+#    #+#             */
+/*   Updated: 2019/10/11 14:11:00 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <dirent.h>
+#include <unistd.h>
 
-
-void	print_info_folder(const char *filename, int flags)
+void		simple_print(t_dlist *args)
 {
-	DIR				*dir;
-	struct dirent	*cur_dir;
-
-	if (!(dir = opendir(filename)))
-		ft_printf("ls: %s: Permission denied\n");
-	while ((cur_dir = readdir(dir)))
+	while (args)
 	{
-		if (flags & flag_l)
-			print_info_object(cur_dir);
-		else
-			ft_printf("%s\n", cur_dir->d_name);
+		write(1, args->content, args->tag);
+		write(1, "\n", 1);
+		args = args->next;
 	}
 }

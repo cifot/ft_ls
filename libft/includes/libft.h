@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 13:17:27 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/10 14:16:26 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/11 16:35:53 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ char				*ft_lltostr(long long num, unsigned base);
 char				*ft_ulltostr(unsigned long long num, unsigned base);
 int					ll_len_base(long long num, unsigned base);
 int					ull_len_base(unsigned long long num, unsigned base);
+void				ft_swap_link(void **a, void **b);
+void				ft_swap_int(int *a, int *b);
 
 /*
 **						SINGLE_LINKED_LIST
@@ -217,6 +219,8 @@ void				ft_dlist_add_after(t_dlist *after, t_dlist *el);
 t_dlist				*ft_dlist_create_el(void *el, int tag);
 void				ft_dlist_sort(t_dlist *beg,
 						long (*cmp)(const void *, const void *));
+t_dlist				*ft_dlist_addfront(t_dlist **lst, void *data,
+						size_t size, int tag);
 
 /*
 **						QUEUE
@@ -224,8 +228,8 @@ void				ft_dlist_sort(t_dlist *beg,
 
 typedef struct		s_queue
 {
-	t_dlist 		*beg;
-	t_dlist 		*end;
+	t_dlist			*beg;
+	t_dlist			*end;
 	size_t			size;
 }					t_queue;
 
@@ -244,7 +248,7 @@ t_queue				*ft_queue_new(void);
 
 typedef struct		s_stack
 {
-	t_dlist 		*beg;
+	t_dlist			*beg;
 	size_t			size;
 }					t_stack;
 

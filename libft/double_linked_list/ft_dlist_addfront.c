@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlist_find.c                                    :+:      :+:    :+:   */
+/*   ft_dlist_addfront.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/11 11:49:13 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 14:34:25 by nharra           ###   ########.fr       */
+/*   Created: 2019/10/11 11:45:03 by nharra            #+#    #+#             */
+/*   Updated: 2019/10/11 11:47:05 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_dlist		*ft_dlist_find(t_dlist const *lst, void *data,
-							int (*f)(void *, void *))
+t_dlist		*ft_dlist_addfront(t_dlist **lst, void *data, size_t size, int tag)
 {
-	if (lst == NULL || f == NULL)
+	t_dlist		*ptr;
+
+	if (!lst || !(ptr = (t_dlist *)malloc(sizeof(*ptr))))
 		return (NULL);
-	while (lst && f(lst->content, data))
+	if (!(ptr->content = (void *)malloc(size)))
 	{
-		lst = lst->next;
+		free(ptr);
+		return (NULL);
 	}
-	return ((t_dlist *)lst);
+	ft_memcpy(ptr->content, data, size);
+	ptr->tag = tag;
+	ptr->prev = NULL;
+	ptr->next = *lst;
+	if (*lst != NULL)
+		(*lst)->prev = ptr;
+	*lst = ptr;
+	return (*lst);
 }

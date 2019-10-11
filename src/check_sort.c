@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 17:39:13 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/10 16:01:33 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/11 15:36:21 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void			check_sort(t_dlist *ls_args, int flags)
 {
 	t_dlist *ptr;
 
-	ft_dlist_sort(ls_args, cmp_error);
 	skip_invalid(ls_args, &ptr);
 	if (!ptr)
 		return ;
