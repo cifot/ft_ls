@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:53:23 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 18:24:54 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/12 11:19:34 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int				make_flag_and_args(char **argv, int *flags,
 		if (check_invalid(argv[i++], &error))
 			continue ;
 		len = ft_strlen(argv[i - 1]);
-		if (ft_dlist_addfront(ls_args, argv[i - 1], len + 1,  len) == NULL)
+		if (ft_dlist_addfront(ls_args, argv[i - 1], len + 1, len) == NULL)
 		{
 			ft_dlist_simple_del(ls_args);
 			return (-1);

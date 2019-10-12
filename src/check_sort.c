@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 17:39:13 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 17:14:40 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/12 11:16:50 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-
 void			check_sort(t_dlist *ls_args, int flags)
 {
+	if (!ls_args || !(ls_args->next))
+		return ;
 	if ((flags & flag_r) && (flags & flag_t))
 		ft_dlist_sort(ls_args, cmp_time_descending);
 	else if (flags & flag_t)

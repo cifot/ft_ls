@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:48:09 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 18:24:40 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/11 19:33:13 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ typedef struct	s_ls_info
 int				make_flag_and_args(char **argv, int *flags,
 					t_dlist **ls_args, t_dlist *error);
 void			check_sort(t_dlist *ls_args, int flags);
-long			cmp_time_ascending(const void *s1, const void *s2);
-long			cmp_time_descending(const void *s1, const void *s2);
-long			void_strcmp(const void *s1, const void *s2);
-long			void_revstrcmp(const void *s1, const void *s2);
+int				cmp_time_ascending(const void *s1, const void *s2);
+int				cmp_time_descending(const void *s1, const void *s2);
+int				void_strcmp(const void *s1, const void *s2);
+int				void_revstrcmp(const void *s1, const void *s2);
 t_ls_info		*new_ls_info(void);
 t_ls_info		*init_ls_info(const char *dirname, int flags);
 void			ls_dir(char *dirname, int flags, int write_name,

@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 13:17:27 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 16:35:53 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/11 19:35:35 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ void				ft_dlist_delone(t_dlist **lst, t_dlist *ptr,
 						void (*del)(void *));
 void				ft_dlist_del(t_dlist **lst, void (*del)(void *));
 t_dlist				*ft_dlist_find(t_dlist const *lst, void *data,
-						int (*f)(void *, void *));
+						int (*f)(const void *, const void *));
 t_dlist				*ft_dlist_push(t_dlist **lst, void *data, size_t size,
 						int tag);
 void				ft_dlist_simple_delone(t_dlist **lst, t_dlist *ptr);
@@ -218,7 +218,7 @@ size_t				ft_dlist_len(t_dlist *ptr);
 void				ft_dlist_add_after(t_dlist *after, t_dlist *el);
 t_dlist				*ft_dlist_create_el(void *el, int tag);
 void				ft_dlist_sort(t_dlist *beg,
-						long (*cmp)(const void *, const void *));
+						int (*cmp)(const void *, const void *));
 t_dlist				*ft_dlist_addfront(t_dlist **lst, void *data,
 						size_t size, int tag);
 

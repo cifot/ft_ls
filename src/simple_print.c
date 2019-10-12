@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 13:41:54 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 14:11:00 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/12 11:18:35 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 
 void		simple_print(t_dlist *args)
 {
+	char *str;
+
 	while (args)
 	{
-		write(1, args->content, args->tag);
-		write(1, "\n", 1);
+		str = (char *)args->content;
+		while (*str)
+			++str;
+		while (*str != '/')
+			--str;
+		ft_printf("%s\n", str + 1);
 		args = args->next;
 	}
 }

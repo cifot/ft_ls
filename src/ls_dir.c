@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:43:16 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 18:29:02 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/12 11:18:53 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,23 @@ static t_dlist		*make_args(int flags, char *dirname)
 	int				len;
 	DIR				*dir;
 	t_dlist			*lst;
+	char			*str;
 
 	dir = opendir(dirname);
 	lst = NULL;
+	len = ft_strlen(dirname);
 	while ((cur_file = readdir(dir)))
 	{
 		if ((cur_file->d_name[0] == '.') && !(flags & flag_a))
 			continue ;
-		len = cur_file->d_namlen;
-		ft_dlist_addfront(&lst, cur_file->d_name, len + 1, len);
+		str = ft_strdup(cur_file->d_name);
+		ft_join_beg(&str, "/");
+		ft_join_beg(&str, dirname);
+		ft_dlist_addfront_link(&lst, str, len + cur_file->d_namlen + 2);
 	}
 	closedir(dir);
 	check_sort(lst, flags);
 	return (lst);
-}
-
-int					call_strcmp(void *s1, void *s2)
-{
-	return (ft_strcmp((char *)s1, (char *)s2));
 }
 
 void				call_rec_continue(t_dlist *dirs, int flags,
@@ -56,6 +55,16 @@ void				call_rec_continue(t_dlist *dirs, int flags,
 		ptr = ptr->next;
 	}
 	ft_dlist_del_link(&dirs);
+}
+
+static int			find_dir(const void *s1, const void *s2)
+{
+	while (*((char *)s1))
+		++s1;
+	while (*((char *)s1) != '/')
+		--s1;
+	++s1;
+	return (ft_strcmp((char *)s1, (char *)s2));
 }
 
 static void			call_rec(char *dirname, int flags, t_dlist *args)
@@ -75,9 +84,8 @@ static void			call_rec(char *dirname, int flags, t_dlist *args)
 		if ((cur_file->d_name[0] == '.') && !(flags & flag_a))
 			continue ;
 		if ((cur_file->d_type == 4)
-		&& ft_dlist_find(args, cur_file->d_name, call_strcmp))
+		&& ft_dlist_find(args, cur_file->d_name, find_dir))
 		{
-			args = args->next;
 			str = ft_strdup(dirname);
 			ft_join(&str, "/");
 			ft_join(&str, cur_file->d_name);
