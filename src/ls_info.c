@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 10:55:04 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/14 14:38:05 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/14 16:21:01 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ static void		check_file(char *filename, t_ls_info *info)
 
 	if (stat(filename, &st))
 		return ;
-	if	(!(gr = getgrgid(st.st_gid)) || !(user = getpwuid(st.st_uid)))
+	if (!(gr = getgrgid(st.st_gid)))
+		return ;
+	if (!(user = getpwuid(st.st_uid)))
 		return ;
 	if (st.st_nlink > info->count_link)
 		info->count_link = st.st_nlink;

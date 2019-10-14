@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:43:16 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/14 16:09:16 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/14 17:06:49 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void				call_rec_continue(t_dlist *dirs, int flags,
 
 static char			*skip_dirs(char *str)
 {
-	while(*str)
+	while (*str)
 		++str;
 	while (*str != '/')
 		--str;
@@ -113,9 +113,9 @@ void				ls_dir(char *dirname, int flags,
 		write(1, ":\n", 2);
 	}
 	if (flags & flag_l)
-		hard_print(args);
+		hard_print(args, dirname, write_name);
 	else
-		simple_print(args);
+		simple_print(args, write_name);
 	if (flags & flag_R)
 		call_rec(dirname, flags, args);
 	else

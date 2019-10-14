@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 14:50:17 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/14 16:10:50 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/14 17:10:04 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void		print_mode(char *filename)
 	i = 0;
 	while (i < 9)
 	{
-		buf[i] = (st.st_mode & (1 << (8-i))) ? mode[i] : '-';
+		buf[i] = (st.st_mode & (1 << (8 - i))) ? mode[i] : '-';
 		++i;
 	}
 	ft_putstr(buf);
@@ -75,8 +75,9 @@ void		print_link_and_names(char *filename, t_ls_info *info)
 	struct group	*gr;
 	struct passwd	*user;
 
-	if (stat(filename, &st) == -1 ||
-		!(gr = getgrgid(st.st_gid)) || !(user = getpwuid(st.st_uid)))
+	if (stat(filename, &st) == -1 || !(gr = getgrgid(st.st_gid)))
+		return ;
+	if (!(user = getpwuid(st.st_uid)))
 		return ;
 	put_nsym(ull_len_base(info->count_link, 10) -
 		ull_len_base(st.st_nlink, 10), ' ');
@@ -90,34 +91,37 @@ void		print_link_and_names(char *filename, t_ls_info *info)
 	put_nsym(info->len_group - ft_strlen(gr->gr_name), ' ');
 	ft_putstr(gr->gr_name);
 	write(1, "  ", 2);
+}
+
+void		print_time_and_blocks(char *filename, t_ls_info *info)
+{
+	struct stat		st;
+	char			*str;
+
 	put_nsym(ll_len_base(info->size, 10) - ll_len_base(st.st_size, 10), ' ');
 	if ((str = ft_lltostr(st.st_size, 10)))
 		ft_putstr(str);
 	free(str);
-	write(1, " ", 2);
-}
-
-void			print_time(char *filename)
-{
-	struct stat		st;
-	char			*str;
-
+	ft_putchar(' ');
 	if (stat(filename, &st) == -1)
 		return ;
 	if (!(str = ctime(&st.st_mtimespec.tv_sec)))
-		return;
+		return ;
 	write(1, str + 4, ft_strlen(str) - 13);
 	write(1, " ", 1);
 }
 
-void			print_name(char *filename)
+void		print_name_with_link(char *filename, int print_full)
 {
 	struct stat		st;
 	char			*str;
 
 	if (stat(filename, &st) == -1)
 		return ;
-	print_filename(filename);
+	if (print_full)
+		ft_printf("%s", filename);
+	else
+		print_filename(filename);
 	if (!lstat(filename, &st) && ((st.st_mode & S_IFMT) == S_IFLNK))
 	{
 		write(1, " -> ", 4);
