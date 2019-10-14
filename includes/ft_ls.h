@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:48:09 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 19:33:13 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/14 15:33:33 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ typedef enum	e_lsflags {
 
 typedef struct	s_ls_info
 {
-	int		len_count_link;
-	int		len_username;
-	int		len_size;
+	size_t		count_link;
+	size_t		len_username;
+	size_t		len_group;
+	long long	size;
 }				t_ls_info;
 
 int				make_flag_and_args(char **argv, int *flags,
@@ -36,12 +37,18 @@ int				cmp_time_ascending(const void *s1, const void *s2);
 int				cmp_time_descending(const void *s1, const void *s2);
 int				void_strcmp(const void *s1, const void *s2);
 int				void_revstrcmp(const void *s1, const void *s2);
-t_ls_info		*new_ls_info(void);
-t_ls_info		*init_ls_info(const char *dirname, int flags);
+t_ls_info		*init_ls_info(t_dlist *args);
 void			ls_dir(char *dirname, int flags, int write_name,
 						t_dlist *args);
 void			simple_print(t_dlist *args);
 void			hard_print(t_dlist *args);
 t_dlist			*erase_dirs(t_dlist **lst);
+int				find_dir(const void *s1, const void *s2);
+void			print_type(const char *filename);
+void			print_mode(char *filename);
+void			print_link_and_names(char *filename, t_ls_info *info);
+void			print_time(char *filename);
+void			print_filename(char *str);
+void			print_name(char *filename);
 
 #endif

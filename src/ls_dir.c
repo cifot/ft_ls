@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:43:16 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/12 11:18:53 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/14 15:44:48 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <unistd.h>
 #include <pwd.h>
 
 static t_dlist		*make_args(int flags, char *dirname)
@@ -57,7 +58,7 @@ void				call_rec_continue(t_dlist *dirs, int flags,
 	ft_dlist_del_link(&dirs);
 }
 
-static int			find_dir(const void *s1, const void *s2)
+int			find_dir(const void *s1, const void *s2)
 {
 	while (*((char *)s1))
 		++s1;
