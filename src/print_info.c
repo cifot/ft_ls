@@ -6,12 +6,11 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 14:50:17 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/14 15:42:42 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/14 16:10:50 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <dirent.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -125,5 +124,6 @@ void			print_name(char *filename)
 		if ((str = (char *)malloc(sizeof(*str) * st.st_size + 1)))
 			if (readlink(filename, str, st.st_size + 1) > 0)
 				write(1, str, st.st_size);
+		free(str);
 	}
 }

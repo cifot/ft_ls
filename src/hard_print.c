@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:50:01 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/14 15:33:52 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/14 16:05:51 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ void			hard_print(t_dlist *args)
 		ft_putchar('\n');
 		args = args->next;
 	}
+	free(info);
 }

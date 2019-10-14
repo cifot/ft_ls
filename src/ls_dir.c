@@ -6,7 +6,7 @@
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:43:16 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/14 15:44:48 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/14 16:09:16 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ static t_dlist		*make_args(int flags, char *dirname)
 }
 
 void				call_rec_continue(t_dlist *dirs, int flags,
-						char *dirname, DIR *dir)
+						char *dirname)
 {
 	t_dlist *ptr;
 
-	closedir(dir);
 	free(dirname);
 	ptr = dirs;
 	while (ptr)
@@ -58,42 +57,40 @@ void				call_rec_continue(t_dlist *dirs, int flags,
 	ft_dlist_del_link(&dirs);
 }
 
-int			find_dir(const void *s1, const void *s2)
+static char			*skip_dirs(char *str)
 {
-	while (*((char *)s1))
-		++s1;
-	while (*((char *)s1) != '/')
-		--s1;
-	++s1;
-	return (ft_strcmp((char *)s1, (char *)s2));
+	while(*str)
+		++str;
+	while (*str != '/')
+		--str;
+	++str;
+	return (str);
 }
 
 static void			call_rec(char *dirname, int flags, t_dlist *args)
 {
-	DIR				*dir;
-	struct dirent	*cur_file;
+	struct stat		st;
 	t_dlist			*dirs;
 	int				len;
 	char			*str;
 
 	len = ft_strlen(dirname);
 	dirs = NULL;
-	if (!(dir = opendir(dirname)))
-		return ;
-	while ((cur_file = readdir(dir)))
+	while (args && !stat((char *)args->content, &st))
 	{
-		if ((cur_file->d_name[0] == '.') && !(flags & flag_a))
-			continue ;
-		if ((cur_file->d_type == 4)
-		&& ft_dlist_find(args, cur_file->d_name, find_dir))
+		if ((skip_dirs((char *)args->content)[0] == '.') && !(flags & flag_a))
 		{
-			str = ft_strdup(dirname);
-			ft_join(&str, "/");
-			ft_join(&str, cur_file->d_name);
-			ft_dlist_push_link(&dirs, str, len + cur_file->d_namlen);
+			args = args->next;
+			continue ;
 		}
+		if (((st.st_mode & S_IFMT) == S_IFDIR))
+		{
+			str = ft_strdup((char *)args->content);
+			ft_dlist_push_link(&dirs, str, args->tag);
+		}
+		args = args->next;
 	}
-	call_rec_continue(dirs, flags, dirname, dir);
+	call_rec_continue(dirs, flags, dirname);
 }
 
 void				ls_dir(char *dirname, int flags,
