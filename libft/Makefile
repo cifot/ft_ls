@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nharra <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: nharra <nharra@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/17 12:21:44 by nharra            #+#    #+#              #
-#    Updated: 2019/10/11 19:37:09 by nharra           ###   ########.fr        #
+#    Updated: 2019/10/21 14:28:12 by nharra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,6 +90,7 @@ SOURCES_DOUBLE_LIST =\
 	ft_dlist_add_prev.c\
 	ft_dlist_create_el.c\
 	ft_dlist_sort.c\
+	ft_dlist_is_tagsort.c\
 	ft_dlist_addfront.c\
 	ft_dlist_len.c\
 

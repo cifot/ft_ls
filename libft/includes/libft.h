@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 13:17:27 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 19:35:35 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/21 14:32:28 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <fcntl.h>
 # include <stdarg.h>
 # define BUFF_SIZE 1024
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 
 /*
 **						MEMORY
@@ -85,8 +87,8 @@ char				*ft_lltostr(long long num, unsigned base);
 char				*ft_ulltostr(unsigned long long num, unsigned base);
 int					ll_len_base(long long num, unsigned base);
 int					ull_len_base(unsigned long long num, unsigned base);
-void				ft_swap_link(void **a, void **b);
 void				ft_swap_int(int *a, int *b);
+void				ft_swap_link(void **a, void **b);
 
 /*
 **						SINGLE_LINKED_LIST
@@ -101,8 +103,8 @@ typedef struct		s_list
 
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstadd(t_list **alst, t_list *new);
+void				ft_lstdel(t_list **lst, void (*del)(void *, size_t));
+void				ft_lstadd(t_list **lst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
@@ -201,7 +203,7 @@ void				ft_dlist_delone(t_dlist **lst, t_dlist *ptr,
 						void (*del)(void *));
 void				ft_dlist_del(t_dlist **lst, void (*del)(void *));
 t_dlist				*ft_dlist_find(t_dlist const *lst, void *data,
-						int (*f)(const void *, const void *));
+						int (*f)(void *, void *));
 t_dlist				*ft_dlist_push(t_dlist **lst, void *data, size_t size,
 						int tag);
 void				ft_dlist_simple_delone(t_dlist **lst, t_dlist *ptr);
@@ -218,9 +220,10 @@ size_t				ft_dlist_len(t_dlist *ptr);
 void				ft_dlist_add_after(t_dlist *after, t_dlist *el);
 t_dlist				*ft_dlist_create_el(void *el, int tag);
 void				ft_dlist_sort(t_dlist *beg,
-						int (*cmp)(const void *, const void *));
+					int (*cmp)(const void *, const void *));
+int					ft_dlist_is_tagsort(t_dlist *lst, int is_ascending);
 t_dlist				*ft_dlist_addfront(t_dlist **lst, void *data,
-						size_t size, int tag);
+					size_t size, int tag);
 
 /*
 **						QUEUE

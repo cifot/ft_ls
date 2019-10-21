@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dlist_sort.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 11:12:55 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/11 19:32:47 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/21 11:59:04 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void	ft_dlist_sort(t_dlist *beg, int (*cmp)(const void *, const void *))
 {
 	t_dlist *ptr;
 	t_dlist *min;
+	void	*save;
 
-	if (!beg || !(beg->next) || !cmp)
+	if (!beg || !(beg->next))
 		return ;
 	while (beg->next)
 	{
@@ -31,8 +32,9 @@ void	ft_dlist_sort(t_dlist *beg, int (*cmp)(const void *, const void *))
 		}
 		if (min != beg)
 		{
-			ft_swap_link(&(min->content), &(beg->content));
-			ft_swap_int(&(min->tag), &(beg->tag));
+			save = beg->content;
+			beg->content = min->content;
+			min->content = save;
 		}
 		beg = beg->next;
 	}

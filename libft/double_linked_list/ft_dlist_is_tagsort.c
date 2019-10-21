@@ -1,25 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dlist_find.c                                    :+:      :+:    :+:   */
+/*   ft_dlist_is_tagsort.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/11 11:49:13 by nharra            #+#    #+#             */
-/*   Updated: 2019/09/13 13:10:25 by nharra           ###   ########.fr       */
+/*   Created: 2019/10/08 22:55:19 by nharra            #+#    #+#             */
+/*   Updated: 2019/10/08 22:59:44 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_dlist		*ft_dlist_find(t_dlist const *lst, void *data,
-							int (*f)(void *, void *))
+int		ft_dlist_is_tagsort(t_dlist *lst, int is_ascending)
 {
-	if (lst == NULL || f == NULL)
-		return (NULL);
-	while (lst && f(lst->content, data))
+	if (!lst)
+		return (1);
+	if (is_ascending)
 	{
-		lst = lst->next;
+		while (lst->next)
+		{
+			if (lst->tag > lst->next->tag)
+				return (0);
+			lst = lst->next;
+		}
 	}
-	return ((t_dlist *)lst);
+	else
+	{
+		while (lst->next)
+		{
+			if (lst->tag < lst->next->tag)
+				return (0);
+			lst = lst->next;
+		}
+	}
+	return (1);
 }
