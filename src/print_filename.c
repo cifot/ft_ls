@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simple_print.c                                     :+:      :+:    :+:   */
+/*   print_filename.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/11 13:41:54 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/21 18:55:12 by nharra           ###   ########.fr       */
+/*   Created: 2019/10/21 18:52:59 by nharra            #+#    #+#             */
+/*   Updated: 2019/10/21 19:59:10 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include <unistd.h>
 
-void		simple_print(t_dlist *args, int print_full)
+void		print_filename(const char *path)
 {
-	while (args)
-	{
-		if (print_full)
-			print_filename((char *)args->content);
-		else
-			print_filename((char *)args->content);
-		ft_putchar('\n');
-		args = args->next;
-	}
+	const char *end;
+	const char *ptr;
+
+	ptr = path;
+	while (*ptr)
+		++ptr;
+	end = ptr;
+	while (*ptr != '/' && ptr != path)
+		--ptr;
+	if (ptr != path)
+		++ptr;
+	write(1, ptr, end - ptr);
 }
