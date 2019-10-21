@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nharra <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: nharra <nharra@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 18:13:07 by nharra            #+#    #+#              #
-#    Updated: 2019/10/14 14:53:48 by nharra           ###   ########.fr        #
+#    Updated: 2019/10/21 18:18:32 by nharra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS =\
 	hard_print.c\
 	ls_info.c\
 	print_info.c\
-
+	get_extatr.c\
 
 SOURCES_DIR = src
 

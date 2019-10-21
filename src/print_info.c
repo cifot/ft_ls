@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 14:50:17 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/14 17:10:04 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/21 18:19:33 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,19 @@ void		print_type(const char *filename)
 		ft_putchar('-');
 }
 
-void		print_mode(char *filename)
+void		print_mode(const char *filename)
 {
 	struct stat st;
 	char		*buf;
 	int			i;
 	const char	*mode;
 
-	if (stat(filename, &st))
-		return ;
+	if (lstat(filename, &st))
+		if (stat(filename, &st))
+			return ;
 	if (!(buf = (char *)malloc(sizeof(*buf) * 12)))
 		return ;
-	buf[9] = ' ';
+	buf[9] = get_extatr(filename);
 	buf[10] = ' ';
 	buf[11] = '\0';
 	mode = "rwxrwxrwx";
@@ -68,14 +69,17 @@ void		print_mode(char *filename)
 	free(buf);
 }
 
-void		print_link_and_names(char *filename, t_ls_info *info)
+void		print_link_and_names(const char *filename, t_ls_info *info)
 {
 	struct stat		st;
 	char			*str;
 	struct group	*gr;
 	struct passwd	*user;
 
-	if (stat(filename, &st) == -1 || !(gr = getgrgid(st.st_gid)))
+	if (lstat(filename, &st))
+		if (stat(filename, &st))
+			return ;
+	if (!(gr = getgrgid(st.st_gid)))
 		return ;
 	if (!(user = getpwuid(st.st_uid)))
 		return ;
@@ -93,7 +97,7 @@ void		print_link_and_names(char *filename, t_ls_info *info)
 	write(1, "  ", 2);
 }
 
-void		print_time_and_blocks(char *filename, t_ls_info *info)
+void		print_time_and_blocks(const char *filename, t_ls_info *info)
 {
 	struct stat		st;
 	char			*str;
@@ -103,21 +107,23 @@ void		print_time_and_blocks(char *filename, t_ls_info *info)
 		ft_putstr(str);
 	free(str);
 	ft_putchar(' ');
-	if (stat(filename, &st) == -1)
-		return ;
+	if (lstat(filename, &st))
+		if (stat(filename, &st))
+			return ;
 	if (!(str = ctime(&st.st_mtimespec.tv_sec)))
 		return ;
 	write(1, str + 4, ft_strlen(str) - 13);
 	write(1, " ", 1);
 }
 
-void		print_name_with_link(char *filename, int print_full)
+void		print_name_with_link(const char *filename, int print_full)
 {
 	struct stat		st;
 	char			*str;
 
-	if (stat(filename, &st) == -1)
-		return ;
+	if (lstat(filename, &st))
+		if (stat(filename, &st))
+			return ;
 	if (print_full)
 		ft_printf("%s", filename);
 	else
