@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_flag_and_args.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nharra <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:53:23 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/12 11:19:34 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/22 19:09:15 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,13 @@ static int		add_flags(char *str, int *flags)
 			*flags |= flag_l;
 		else if (*str == 't')
 			*flags |= flag_t;
-		else
+		else if (*str != '1')
+		{
+			ft_putstr_fd("ls: illegal option --", 2);
+			ft_putchar_fd(*str, 2);
+			ft_putstr_fd("\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", 2);
 			return (-1);
+		}
 	}
 	return (1);
 }

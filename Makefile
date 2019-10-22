@@ -6,7 +6,7 @@
 #    By: nharra <nharra@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 18:13:07 by nharra            #+#    #+#              #
-#    Updated: 2019/10/21 18:55:48 by nharra           ###   ########.fr        #
+#    Updated: 2019/10/22 18:14:22 by nharra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,9 @@ SRCS =\
 	print_info.c\
 	get_extatr.c\
 	print_filename.c\
+	print_total.c\
+	print_perm_denied.c\
+	print_time.c\
 
 SOURCES_DIR = src
 

@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:43:16 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/21 18:02:38 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/22 19:03:32 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,13 @@ static void			call_rec(char *dirname, int flags, t_dlist *args)
 
 	len = ft_strlen(dirname);
 	dirs = NULL;
-	while (args && !stat((char *)args->content, &st))
+	while (args)
 	{
-		if ((skip_dirs((char *)args->content)[0] == '.') && !(flags & flag_a))
+		if (lstat((char *)args->content, &st))
+			stat((char *)args->content, &st);
+		if (((skip_dirs((char *)args->content)[0] == '.') && !(flags & flag_a))
+		|| !ft_strcmp(skip_dirs((char *)args->content), ".")
+		|| !ft_strcmp(skip_dirs((char *)args->content), ".."))
 		{
 			args = args->next;
 			continue ;
@@ -97,25 +101,23 @@ void				ls_dir(char *dirname, int flags,
 						int write_name, t_dlist *args)
 {
 	DIR				*dir;
+	int				write_path;
 
+	if (write_name)
+		ft_printf("\n%s:\n", dirname);
 	if (!(dir = opendir(dirname)))
 	{
-		ft_printf("ls: %s: Permission denied\n", dirname);
+		print_perm_denied(dirname);
 		return ;
 	}
 	closedir(dir);
-	if (!args)
+	write_path = 1;
+	if (!args && !(write_path = 0))
 		args = make_args(flags, dirname);
-	if (write_name)
-	{
-		write(1, "\n", 1);
-		write(1, dirname, ft_strlen(dirname));
-		write(1, ":\n", 2);
-	}
 	if (flags & flag_l)
-		hard_print(args, dirname, write_name);
+		hard_print(args, write_path);
 	else
-		simple_print(args, write_name);
+		simple_print(args, write_path);
 	if (flags & flag_R)
 		call_rec(dirname, flags, args);
 	else

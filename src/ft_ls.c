@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 17:10:38 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/21 19:57:12 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/22 19:10:24 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				main(int argc, char **argv)
 	ls_args = NULL;
 	flags = 0;
 	if (make_flag_and_args(argv, &flags, &ls_args, NULL) == -1)
-		return (-1);
+		return (1);
 	if (ls_args)
 	{
 		check_sort(ls_args, flags);

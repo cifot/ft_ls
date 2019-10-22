@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simple_print.c                                     :+:      :+:    :+:   */
+/*   print_perm_denied.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/11 13:41:54 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/22 16:05:39 by nharra           ###   ########.fr       */
+/*   Created: 2019/10/22 15:30:20 by nharra            #+#    #+#             */
+/*   Updated: 2019/10/22 15:38:21 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "ft_ls.h"
 
-void		simple_print(t_dlist *args, int print_full)
+void	print_perm_denied(const char *dirname)
 {
-	while (args)
-	{
-		if (print_full)
-			ft_putstr((char *)args->content);
-		else
-			print_filename((char *)args->content, 1);
-		ft_putchar('\n');
-		args = args->next;
-	}
+	ft_putstr_fd("ls: ", 2);
+	print_filename(dirname, 2);
+	ft_putstr_fd(": Permission denied\n", 2);
 }

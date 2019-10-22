@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:48:09 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/21 18:19:58 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/22 18:11:59 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,17 @@ t_ls_info		*init_ls_info(t_dlist *args);
 void			ls_dir(char *dirname, int flags, int write_name,
 						t_dlist *args);
 void			simple_print(t_dlist *args, int print_full);
-void			hard_print(t_dlist *args, char *dirname, int print_full);
+void			hard_print(t_dlist *args, int print_path);
 t_dlist			*erase_dirs(t_dlist **lst);
 int				find_dir(const void *s1, const void *s2);
-void			print_type(const char *filename);
 void			print_mode(const char *filename);
 void			print_link_and_names(const char *filename, t_ls_info *info);
-void			print_time_and_blocks(const char *filename, t_ls_info *info);
-void			print_filename(const char *str);
+void			print_blocks(const char *filename, t_ls_info *info);
+void			print_filename(const char *str, int fd);
 void			print_name_with_link(const char *filename, int print_full);
 char			get_extatr(const char *filename);
+void			print_total(t_dlist *args);
+void			print_perm_denied(const char *dirname);
+void			print_time(const char *filename);
 
 #endif

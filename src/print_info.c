@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 14:50:17 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/21 18:19:33 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/22 18:13:18 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,32 +18,32 @@
 #include <time.h>
 #include <grp.h>
 
-void		print_type(const char *filename)
+static char		get_type(const char *filename)
 {
 	struct stat		st;
 	mode_t			stt;
 
 	if (lstat(filename, &st))
 		if (stat(filename, &st))
-			return ;
+			return ('-');
 	stt = st.st_mode & S_IFMT;
 	if (stt == S_IFSOCK)
-		ft_putchar('s');
+		return ('s');
 	else if (stt == S_IFLNK)
-		ft_putchar('l');
+		return ('l');
 	else if (stt == S_IFBLK)
-		ft_putchar('b');
+		return ('b');
 	else if (stt == S_IFDIR)
-		ft_putchar('d');
+		return ('d');
 	else if (stt == S_IFCHR)
-		ft_putchar('c');
+		return ('c');
 	else if (stt == S_IFIFO)
-		ft_putchar('p');
+		return ('p');
 	else
-		ft_putchar('-');
+		return ('-');
 }
 
-void		print_mode(const char *filename)
+void			print_mode(const char *filename)
 {
 	struct stat st;
 	char		*buf;
@@ -53,23 +53,24 @@ void		print_mode(const char *filename)
 	if (lstat(filename, &st))
 		if (stat(filename, &st))
 			return ;
-	if (!(buf = (char *)malloc(sizeof(*buf) * 12)))
+	if (!(buf = (char *)malloc(sizeof(*buf) * 13)))
 		return ;
-	buf[9] = get_extatr(filename);
-	buf[10] = ' ';
-	buf[11] = '\0';
+	buf[0] = get_type(filename);
+	buf[10] = get_extatr(filename);
+	buf[11] = ' ';
+	buf[12] = '\0';
 	mode = "rwxrwxrwx";
 	i = 0;
 	while (i < 9)
 	{
-		buf[i] = (st.st_mode & (1 << (8 - i))) ? mode[i] : '-';
+		buf[i + 1] = (st.st_mode & (1 << (8 - i))) ? mode[i] : '-';
 		++i;
 	}
 	ft_putstr(buf);
 	free(buf);
 }
 
-void		print_link_and_names(const char *filename, t_ls_info *info)
+void			print_link_and_names(const char *filename, t_ls_info *info)
 {
 	struct stat		st;
 	char			*str;
@@ -89,31 +90,27 @@ void		print_link_and_names(const char *filename, t_ls_info *info)
 		ft_putstr(str);
 	free(str);
 	ft_putchar(' ');
-	put_nsym(info->len_username - ft_strlen(user->pw_name), ' ');
 	ft_putstr(user->pw_name);
+	put_nsym(info->len_username - ft_strlen(user->pw_name), ' ');
 	write(1, "  ", 2);
-	put_nsym(info->len_group - ft_strlen(gr->gr_name), ' ');
 	ft_putstr(gr->gr_name);
+	put_nsym(info->len_group - ft_strlen(gr->gr_name), ' ');
 	write(1, "  ", 2);
 }
 
-void		print_time_and_blocks(const char *filename, t_ls_info *info)
+void		print_blocks(const char *filename, t_ls_info *info)
 {
 	struct stat		st;
 	char			*str;
 
+	if (lstat(filename, &st))
+		if (stat(filename, &st))
+			return ;
 	put_nsym(ll_len_base(info->size, 10) - ll_len_base(st.st_size, 10), ' ');
 	if ((str = ft_lltostr(st.st_size, 10)))
 		ft_putstr(str);
 	free(str);
 	ft_putchar(' ');
-	if (lstat(filename, &st))
-		if (stat(filename, &st))
-			return ;
-	if (!(str = ctime(&st.st_mtimespec.tv_sec)))
-		return ;
-	write(1, str + 4, ft_strlen(str) - 13);
-	write(1, " ", 1);
 }
 
 void		print_name_with_link(const char *filename, int print_full)
@@ -124,10 +121,10 @@ void		print_name_with_link(const char *filename, int print_full)
 	if (lstat(filename, &st))
 		if (stat(filename, &st))
 			return ;
-	if (print_full)
-		ft_printf("%s", filename);
+	if (!print_full)
+		ft_putstr(filename);
 	else
-		print_filename(filename);
+		print_filename(filename, 1);
 	if (!lstat(filename, &st) && ((st.st_mode & S_IFMT) == S_IFLNK))
 	{
 		write(1, " -> ", 4);
