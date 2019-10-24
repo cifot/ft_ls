@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:43:16 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/24 16:40:48 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/24 20:01:41 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,18 @@ void				call_rec_continue(t_dlist *dirs, int flags,
 	ft_dlist_del_link(&dirs);
 }
 
-static char			*skip_dirs(char *str)
+char				*skip_dirs(char *str)
 {
-	while (*str)
-		++str;
-	while (*str != '/')
-		--str;
-	++str;
-	return (str);
+	char *tmp;
+
+	tmp = str;
+	while (*tmp)
+		++tmp;
+	while (*tmp != '/' && tmp != str)
+		--tmp;
+	if (*tmp == '/')
+		++tmp;
+	return (tmp);
 }
 
 static void			call_rec(char *dirname, int flags, t_dlist *args,
@@ -116,8 +120,10 @@ void				ls_dir(char *dirname, int flags,
 		args = make_args(flags, dirname);
 	if (flags & flag_l)
 		hard_print(args, write_path);
-	else
+	else if (flags & flag_1)
 		simple_print(args, write_path);
+	else
+		column_print(args, write_path);
 	if (flags & flag_R)
 		call_rec(dirname, flags, args, NULL);
 	else

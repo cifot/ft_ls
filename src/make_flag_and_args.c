@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:53:23 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/24 16:38:14 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/24 19:39:14 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ static int		add_flags(char *str, int *flags)
 			*flags |= flag_l;
 		else if (*str == 't')
 			*flags |= flag_t;
-		else if (*str != '1')
+		else if (*str == 'S')
+			*flags |= flag_S;
+		else if (*str == '1')
+			*flags |= flag_1;
+		else
 		{
 			print_illegal_option(*str);
 			return (-1);

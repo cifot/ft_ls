@@ -6,7 +6,7 @@
 #    By: nharra <nharra@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 18:13:07 by nharra            #+#    #+#              #
-#    Updated: 2019/10/24 16:37:32 by nharra           ###   ########.fr        #
+#    Updated: 2019/10/24 19:37:19 by nharra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SRCS =\
 	print_mode.c\
 	print_illegal_option.c\
 	erase_dirs.c\
+	cmp_2.c\
+	collumn_print.c\
 
 SOURCES_DIR = src
 
