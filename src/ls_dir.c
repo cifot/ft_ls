@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:43:16 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/22 19:03:32 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/24 16:40:48 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void				call_rec_continue(t_dlist *dirs, int flags,
 	ptr = dirs;
 	while (ptr)
 	{
+		write(1, "\n", 1);
 		ls_dir((char *)ptr->content, flags, 1, NULL);
 		ptr = ptr->next;
 	}
@@ -67,15 +68,14 @@ static char			*skip_dirs(char *str)
 	return (str);
 }
 
-static void			call_rec(char *dirname, int flags, t_dlist *args)
+static void			call_rec(char *dirname, int flags, t_dlist *args,
+					t_dlist *dirs)
 {
 	struct stat		st;
-	t_dlist			*dirs;
 	int				len;
 	char			*str;
 
 	len = ft_strlen(dirname);
-	dirs = NULL;
 	while (args)
 	{
 		if (lstat((char *)args->content, &st))
@@ -104,7 +104,7 @@ void				ls_dir(char *dirname, int flags,
 	int				write_path;
 
 	if (write_name)
-		ft_printf("\n%s:\n", dirname);
+		ft_printf("%s:\n", dirname);
 	if (!(dir = opendir(dirname)))
 	{
 		print_perm_denied(dirname);
@@ -119,7 +119,7 @@ void				ls_dir(char *dirname, int flags,
 	else
 		simple_print(args, write_path);
 	if (flags & flag_R)
-		call_rec(dirname, flags, args);
+		call_rec(dirname, flags, args, NULL);
 	else
 		free(dirname);
 	ft_dlist_simple_del(&args);

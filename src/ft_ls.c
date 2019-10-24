@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 17:10:38 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/22 19:10:24 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/24 13:32:24 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,28 @@ static void		main_continue(t_dlist *ls_args, t_dlist *dirs, int flags)
 {
 	if (ls_args)
 		call_ls_dir(ls_args, flags);
-	while (dirs)
+	if (dirs)
 	{
+		if (ls_args)
+			ft_putchar('\n');
 		ls_dir((char *)dirs->content, flags, 1, NULL);
 		ft_dlist_delone_link(&dirs, dirs);
 	}
+	while (dirs)
+	{
+		ft_putchar('\n');
+		ls_dir((char *)dirs->content, flags, 1, NULL);
+		ft_dlist_delone_link(&dirs, dirs);
+	}
+}
+
+static void		print_one_dir(t_dlist *dirs, int flags, int ret)
+{
+	if (ret)
+		ls_dir(strdup((char *)dirs->content), flags, 1, NULL);
+	else
+		ls_dir(strdup((char *)dirs->content), flags, 0, NULL);
+	ft_dlist_simple_del(&dirs);
 }
 
 int				main(int argc, char **argv)
@@ -37,20 +54,19 @@ int				main(int argc, char **argv)
 	int			flags;
 	t_dlist		*ls_args;
 	t_dlist		*dirs;
+	int			ret;
 
 	ls_args = NULL;
-	flags = 0;
-	if (make_flag_and_args(argv, &flags, &ls_args, NULL) == -1)
+	if ((ret = make_flag_and_args(argv, &flags, &ls_args, NULL)) == -1)
 		return (1);
+	else if (ret != 0 && ls_args == NULL)
+		return (0);
 	if (ls_args)
 	{
 		check_sort(ls_args, flags);
 		dirs = erase_dirs(&ls_args);
 		if (ls_args == NULL && ft_dlist_len(dirs) == 1)
-		{
-			ls_dir(strdup((char *)dirs->content), flags, 0, NULL);
-			ft_dlist_simple_del(&dirs);
-		}
+			print_one_dir(dirs, flags, ret);
 		else
 			main_continue(ls_args, dirs, flags);
 	}

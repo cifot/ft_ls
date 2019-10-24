@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:53:23 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/22 19:09:15 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/24 16:38:14 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 
 static int		add_flags(char *str, int *flags)
 {
-	if (*str != '-' || *(str + 1) == '\0')
+	if (*str != '-' || str[1] == '\0')
 		return (0);
+	if (!ft_strcmp(str, "--"))
+		return (2);
 	while (*(++str))
 	{
 		if (*str == 'R')
@@ -33,47 +35,19 @@ static int		add_flags(char *str, int *flags)
 			*flags |= flag_t;
 		else if (*str != '1')
 		{
-			ft_putstr_fd("ls: illegal option --", 2);
-			ft_putchar_fd(*str, 2);
-			ft_putstr_fd("\nusage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n", 2);
+			print_illegal_option(*str);
 			return (-1);
 		}
 	}
 	return (1);
 }
 
-t_dlist			*erase_dirs(t_dlist **lst)
-{
-	t_dlist		*dirs;
-	DIR			*dir;
-	t_dlist		*ptr;
-	t_dlist		*next;
-	int			tag;
-
-	ptr = *lst;
-	dirs = NULL;
-	while (ptr)
-	{
-		if ((dir = opendir((char *)ptr->content)))
-		{
-			closedir(dir);
-			next = ptr->next;
-			tag = ptr->tag;
-			ft_dlist_push_link(&dirs, ptr->content, tag);
-			ft_dlist_delone_link(lst, ptr);
-			ptr = next;
-		}
-		else
-			ptr = ptr->next;
-	}
-	return (dirs);
-}
-
 static int		check_invalid(char *name, t_dlist **error)
 {
 	struct stat st;
 
-	if (stat(name, &st) == -1)
+
+	if (lstat(name, &st) && stat(name, &st))
 	{
 		ft_dlist_addfront_link(error, name, 0);
 		return (1);
@@ -81,18 +55,31 @@ static int		check_invalid(char *name, t_dlist **error)
 	return (0);
 }
 
-static void		print_error(t_dlist **error)
+static int		print_error(t_dlist **error)
 {
-	t_dlist *ptr;
+	t_dlist		*ptr;
+	int			count;
 
 	ft_dlist_sort(*error, void_strcmp);
 	ptr = *error;
+	count = 0;
 	while (ptr)
 	{
-		ft_printf("ls: %s: No such file or directory\n", ptr->content);
+		ft_putstr_fd("ls: ", 2);
+		if (ft_strcmp(ptr->content, ""))
+			ft_putstr_fd(ptr->content, 2);
+		else
+		{
+			ft_putstr_fd("fts_open", 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			exit(1);
+		}
+		ft_putstr_fd(": No such file or directory\n", 2);
 		ptr = ptr->next;
+		++count;
 	}
 	ft_dlist_del_link(error);
+	return (count);
 }
 
 int				make_flag_and_args(char **argv, int *flags,
@@ -102,13 +89,19 @@ int				make_flag_and_args(char **argv, int *flags,
 	int		i;
 	int		len;
 
+	*flags = 0;
 	i = 0;
 	while (argv[++i])
 	{
 		if ((ret = add_flags(argv[i], flags)) == -1)
 			return (-1);
-		if (ret == 0)
-			break ;
+		else
+		{
+			if (ret == 2)
+				++i;
+			if (ret != 1)
+				break;
+		}
 	}
 	while (argv[i])
 	{
@@ -121,6 +114,5 @@ int				make_flag_and_args(char **argv, int *flags,
 			return (-1);
 		}
 	}
-	print_error(&error);
-	return (0);
+	return (print_error(&error));
 }

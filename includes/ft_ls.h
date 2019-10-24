@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:48:09 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/22 18:11:59 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/24 16:37:55 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ char			get_extatr(const char *filename);
 void			print_total(t_dlist *args);
 void			print_perm_denied(const char *dirname);
 void			print_time(const char *filename);
+void			print_illegal_option(char c);
 
 #endif

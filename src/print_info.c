@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 14:50:17 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/22 18:13:18 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/24 16:41:10 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,59 +18,7 @@
 #include <time.h>
 #include <grp.h>
 
-static char		get_type(const char *filename)
-{
-	struct stat		st;
-	mode_t			stt;
-
-	if (lstat(filename, &st))
-		if (stat(filename, &st))
-			return ('-');
-	stt = st.st_mode & S_IFMT;
-	if (stt == S_IFSOCK)
-		return ('s');
-	else if (stt == S_IFLNK)
-		return ('l');
-	else if (stt == S_IFBLK)
-		return ('b');
-	else if (stt == S_IFDIR)
-		return ('d');
-	else if (stt == S_IFCHR)
-		return ('c');
-	else if (stt == S_IFIFO)
-		return ('p');
-	else
-		return ('-');
-}
-
-void			print_mode(const char *filename)
-{
-	struct stat st;
-	char		*buf;
-	int			i;
-	const char	*mode;
-
-	if (lstat(filename, &st))
-		if (stat(filename, &st))
-			return ;
-	if (!(buf = (char *)malloc(sizeof(*buf) * 13)))
-		return ;
-	buf[0] = get_type(filename);
-	buf[10] = get_extatr(filename);
-	buf[11] = ' ';
-	buf[12] = '\0';
-	mode = "rwxrwxrwx";
-	i = 0;
-	while (i < 9)
-	{
-		buf[i + 1] = (st.st_mode & (1 << (8 - i))) ? mode[i] : '-';
-		++i;
-	}
-	ft_putstr(buf);
-	free(buf);
-}
-
-void			print_link_and_names(const char *filename, t_ls_info *info)
+void		print_link_and_names(const char *filename, t_ls_info *info)
 {
 	struct stat		st;
 	char			*str;
