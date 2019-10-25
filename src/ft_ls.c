@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 17:10:38 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/25 20:40:31 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/25 20:56:21 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void		main_continue(t_dlist *ls_args, t_dlist *dirs, int flags)
 static void		print_one_dir(t_dlist *dirs, int flags, int ret)
 {
 	if (ret)
-		ls_dir(strdup((char *)dirs->content), flags, 1, NULL);
+		ls_dir(ft_strdup((char *)dirs->content), flags, 1, NULL);
 	else
-		ls_dir(strdup((char *)dirs->content), flags, 0, NULL);
+		ls_dir(ft_strdup((char *)dirs->content), flags, 0, NULL);
 	ft_dlist_simple_del(&dirs);
 }
 

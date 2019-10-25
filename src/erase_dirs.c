@@ -6,14 +6,14 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 16:36:22 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/25 20:39:44 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/25 20:51:43 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <sys/stat.h>
 
-t_dlist			*dont_erase_fckng_symbol_link(t_dlist **lst)
+static t_dlist	*dont_erase_fckng_symbol_link(t_dlist **lst)
 {
 	t_dlist			*dirs;
 	t_dlist			*ptr;
