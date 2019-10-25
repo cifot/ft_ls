@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 15:43:16 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/24 20:01:41 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/25 18:48:30 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,27 +104,22 @@ static void			call_rec(char *dirname, int flags, t_dlist *args,
 void				ls_dir(char *dirname, int flags,
 						int write_name, t_dlist *args)
 {
-	DIR				*dir;
 	int				write_path;
 
+	write_path = args ? 1 : 0;
 	if (write_name)
 		ft_printf("%s:\n", dirname);
-	if (!(dir = opendir(dirname)))
-	{
-		print_perm_denied(dirname);
+	if (check_perm_denied(dirname))
 		return ;
-	}
-	closedir(dir);
-	write_path = 1;
-	if (!args && !(write_path = 0))
+	if (!args)
 		args = make_args(flags, dirname);
 	if (flags & flag_l)
-		hard_print(args, write_path);
+		hard_print(args, write_path, flags);
 	else if (flags & flag_1)
 		simple_print(args, write_path);
 	else
 		column_print(args, write_path);
-	if (flags & flag_R)
+	if ((flags & flag_R) && !(flags & flag_d))
 		call_rec(dirname, flags, args, NULL);
 	else
 		free(dirname);

@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 16:53:23 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/24 19:39:14 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/25 18:23:49 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@
 
 static int		add_flags(char *str, int *flags)
 {
-	if (*str != '-' || str[1] == '\0')
-		return (0);
-	if (!ft_strcmp(str, "--"))
-		return (2);
 	while (*(++str))
 	{
 		if (*str == 'R')
@@ -30,18 +26,19 @@ static int		add_flags(char *str, int *flags)
 		else if (*str == 'r')
 			*flags |= flag_r;
 		else if (*str == 'l')
-			*flags |= flag_l;
+			*flags = (*flags | flag_l) & (~flag_1);
 		else if (*str == 't')
 			*flags |= flag_t;
 		else if (*str == 'S')
 			*flags |= flag_S;
+		else if (*str == 'c')
+			*flags |= flag_c;
+		else if (*str == 'd')
+			*flags |= flag_d;
 		else if (*str == '1')
-			*flags |= flag_1;
+			*flags = (*flags | flag_1) & (~flag_l);
 		else
-		{
-			print_illegal_option(*str);
-			return (-1);
-		}
+			return (print_illegal_option(*str));
 	}
 	return (1);
 }
@@ -49,7 +46,6 @@ static int		add_flags(char *str, int *flags)
 static int		check_invalid(char *name, t_dlist **error)
 {
 	struct stat st;
-
 
 	if (lstat(name, &st) && stat(name, &st))
 	{
@@ -86,37 +82,47 @@ static int		print_error(t_dlist **error)
 	return (count);
 }
 
+static int		read_flags(int *i, char **argv, int *flags)
+{
+	*i = 0;
+	while (argv[++(*i)])
+	{
+		if (!ft_strcmp(argv[*i], "--"))
+		{
+			++(*i);
+			break ;
+		}
+		if (argv[*i][0] != '-' || argv[*i][1] == '\0')
+			break ;
+		if (add_flags(argv[*i], flags) == -1)
+			return (-1);
+	}
+	return (0);
+}
+
 int				make_flag_and_args(char **argv, int *flags,
 					t_dlist **ls_args, t_dlist *error)
 {
-	int		ret;
 	int		i;
 	int		len;
 
 	*flags = 0;
-	i = 0;
-	while (argv[++i])
-	{
-		if ((ret = add_flags(argv[i], flags)) == -1)
-			return (-1);
-		else
-		{
-			if (ret == 2)
-				++i;
-			if (ret != 1)
-				break;
-		}
-	}
+	if (read_flags(&i, argv, flags) == -1)
+		return (-1);
 	while (argv[i])
 	{
-		if (check_invalid(argv[i++], &error))
-			continue ;
-		len = ft_strlen(argv[i - 1]);
-		if (ft_dlist_addfront(ls_args, argv[i - 1], len + 1, len) == NULL)
+		if (check_invalid(argv[i], &error))
+		{
+			++i;
+			continue;
+		}
+		len = ft_strlen(argv[i]);
+		if (ft_dlist_addfront(ls_args, argv[i], len + 1, len) == NULL)
 		{
 			ft_dlist_simple_del(ls_args);
 			return (-1);
 		}
+		++i;
 	}
 	return (print_error(&error));
 }

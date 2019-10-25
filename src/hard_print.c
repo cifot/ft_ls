@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 16:50:01 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/22 18:14:09 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/25 17:15:17 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <pwd.h>
 
-void			hard_print(t_dlist *args, int print_path)
+void			hard_print(t_dlist *args, int print_path, int flags)
 {
 	t_ls_info		*info;
 
@@ -30,7 +30,10 @@ void			hard_print(t_dlist *args, int print_path)
 		print_mode((char *)args->content);
 		print_link_and_names((char *)args->content, info);
 		print_blocks((char *)args->content, info);
-		print_time((char *)args->content);
+		if (flags & flag_c)
+			print_ctime((char *)args->content);
+		else
+			print_mtime((char *)args->content);
 		print_name_with_link((char *)args->content, !print_path);
 		ft_putchar('\n');
 		args = args->next;

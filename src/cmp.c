@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 13:48:49 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/24 17:47:55 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/25 17:07:36 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int		void_revstrcmp(const void *s1, const void *s2)
 	return (ft_strcmp((char *)s2, (char *)s1));
 }
 
-int		cmp_time_descending(const void *s1, const void *s2)
+int		cmp_mtime_descending(const void *s1, const void *s2)
 {
-	return (cmp_time_ascending(s2, s1));
+	return (cmp_mtime_ascending(s2, s1));
 }
 
-int		cmp_time_ascending(const void *s1, const void *s2)
+int		cmp_mtime_ascending(const void *s1, const void *s2)
 {
 	struct stat		info1;
 	struct stat		info2;

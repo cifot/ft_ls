@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 18:46:59 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/24 20:01:16 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/25 20:30:58 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,11 @@ void				column_print(t_dlist *args, int print_full)
 		col_width = max_size_path(args);
 	else
 		col_width = max_size(args);
-	col = w.ws_col / col_width;
+	if (col_width == 0)
+		return ;
+	col = w.ws_col / (col_width + 1);
+	if (col == 0)
+		col = 1;
 	rows = size_list / col + (size_list % col ? 1 : 0);
 	print_names(args, print_full, rows, col_width + 1);
 }

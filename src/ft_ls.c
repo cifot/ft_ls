@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 17:10:38 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/24 13:32:24 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/25 20:40:31 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,16 @@ static void		print_one_dir(t_dlist *dirs, int flags, int ret)
 	ft_dlist_simple_del(&dirs);
 }
 
+static int		just_print(t_dlist *ls_args, int flags)
+{
+	if (ls_args)
+		check_sort(ls_args, flags);
+	else
+		ft_dlist_addfront(&ls_args, ".", 2, 2);
+	ls_dir(ft_strdup("."), flags, 0, ls_args);
+	return (1);
+}
+
 int				main(int argc, char **argv)
 {
 	int			flags;
@@ -61,10 +71,12 @@ int				main(int argc, char **argv)
 		return (1);
 	else if (ret != 0 && ls_args == NULL)
 		return (0);
+	if (flags & flag_d)
+		return (just_print(ls_args, flags));
 	if (ls_args)
 	{
 		check_sort(ls_args, flags);
-		dirs = erase_dirs(&ls_args);
+		dirs = erase_dirs(&ls_args, flags);
 		if (ls_args == NULL && ft_dlist_len(dirs) == 1)
 			print_one_dir(dirs, flags, ret);
 		else

@@ -6,7 +6,7 @@
 #    By: nharra <nharra@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/09 18:13:07 by nharra            #+#    #+#              #
-#    Updated: 2019/10/24 19:37:19 by nharra           ###   ########.fr        #
+#    Updated: 2019/10/25 17:37:59 by nharra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS =\
 	get_extatr.c\
 	print_filename.c\
 	print_total.c\
-	print_perm_denied.c\
+	check_perm_denied.c\
 	print_time.c\
 	print_mode.c\
 	print_illegal_option.c\
