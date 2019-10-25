@@ -6,7 +6,7 @@
 /*   By: nharra <nharra@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 14:50:17 by nharra            #+#    #+#             */
-/*   Updated: 2019/10/25 19:57:33 by nharra           ###   ########.fr       */
+/*   Updated: 2019/10/25 21:32:34 by nharra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void			print_blocks(const char *filename, t_ls_info *info)
 void			print_name_with_link(const char *filename, int print_full)
 {
 	struct stat		st;
-	char			*str;
+	char			str[1024];
+	ssize_t			size_link;
 
 	if (lstat(filename, &st))
 		if (stat(filename, &st))
@@ -101,11 +102,7 @@ void			print_name_with_link(const char *filename, int print_full)
 	if ((st.st_mode & S_IFMT) == S_IFLNK)
 	{
 		write(1, " -> ", 4);
-		if ((str = (char *)malloc(sizeof(*str) * st.st_size + 1)))
-		{
-			if (readlink(filename, str, st.st_size + 1) > 0)
-				write(1, str, st.st_size);
-			free(str);
-		}
+		if ((size_link = readlink(filename, str, 1024)) > 0)
+			write(1, str, size_link);
 	}
 }
